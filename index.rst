@@ -33,7 +33,7 @@ Qilin所有子系统独立存在，均可独立部署，独立提供服务。
 --------------------------------------------------
 完整的部署架构如下，其中Qilin-Front需要和区块链节点同机部署。
 
-.. image:: images/qilin/Qilin技术架构.svg
+.. image:: images/qilin/Qilin技术架构.png
 
 
 各子系统简介
