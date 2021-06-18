@@ -2,14 +2,27 @@
 
 ## API接口文档
 
-### 1.处理交易
+### 1.查询交易
 
-接口描述：处理交易
+接口描述：
 
-接口地址：http://localhost:10100/v1/app/transactions/handle
+接口地址：http://localhost:10100/v1/app/transactions/call
 
-### 2.token转账
+### 2.执行交易
 
-接口描述：token转账
+接口描述：
 
-接口地址：http://localhost:10100/v1/app/token/transfer
+接口地址：http://localhost:10100/v1/app/transactions/send
+
+### 3.交易信息查询
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/app/transactions/query
+
+### 4.交易回执查询
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/app/transactions/receipt
+
