@@ -13,3 +13,16 @@
 接口描述：批量创建钱包
 
 接口地址：http://localhost:10100/v1/app/wallets/bulk_create
+
+### 3.导入私钥创建钱包
+
+接口描述：导入私钥创建钱包
+
+接口地址：http://localhost:10100/v1/app/wallets/import
+
+### 4.签名
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/app/wallets/sign
+

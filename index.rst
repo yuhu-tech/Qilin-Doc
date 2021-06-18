@@ -71,4 +71,6 @@ Qilin所有子系统独立存在，均可独立部署，独立提供服务。
    ./docs/qilin-wallet/index.md
    ./docs/qilin-transaction/index.md
    ./docs/qilin-evidence/index.md
+   ./docs/qilin-assets/index.md
+   ./docs/qilin-provenance/index.md
    ./docs/qilin-statistics/index.md
