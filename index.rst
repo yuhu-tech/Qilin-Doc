@@ -57,6 +57,16 @@ Qilin所有子系统独立存在，均可独立部署，独立提供服务。
 `Qilin-Evidence <./docs/qilin-evidence/index.html>`_
 存证服务提供给用户将数据存储上链的接口。用户通过调用本服务的接口，可以自由的创建数据表，往数据表里插入数据，更新数据，或者查询数据。
 
+溯源服务
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+`Qilin-Provenance <./docs/qilin-provenance/index.html>`_
+
+
+资产发行服务
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+`Qilin-Assets <./docs/qilin-assets/index.html>`_
+
+
 统计服务
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 `Qilin-Statistics <./docs/qilin-statistics/index.html>`_
