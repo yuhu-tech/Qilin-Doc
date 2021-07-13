@@ -13,29 +13,31 @@
 
 4. tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
-    4.1. 获取 tenant admin 默认钱包（wallet service GetWalletMe）
+    4.1. 获取 tenant admin 默认钱包（wallet service ListWallets）
 
-    4.2. 创建存证事务，注：4.3存证创建失败，则存证事务作为脏数据存储在数据库中（evid service）
+    4.2. 获取 tenant admin 企业认证信息（iam service ListTenantsKYC）
 
-        4.2.1. （二阶段）后续增加识蛛的实名认证，并获取认证的时间戳
+    4.3. 创建存证事务，附带上企业认证信息，注：4.4存证创建失败，则存证事务作为脏数据存储在数据库中（evid service）
 
-    4.3. 创建存证，状态（builded）（evid service）
+        4.3.1. （二阶段）后续增加识蛛的实名认证，并获取认证的时间戳
 
-    4.4. 调用交易服务发送交易，传入outTradeId作为幂等号（transaction service CreateTransaction）
+    4.4. 创建存证，状态（builded）（evid service）
 
-        4.4.1. 创建交易任务，由于存证outTradeId，所以可以retry（transaction service CreateTransaction）
+    4.5. 调用交易服务发送交易，传入outTradeId作为幂等号（transaction service CreateTransaction）
+
+        4.5.1. 创建交易任务，由于存证outTradeId，所以可以retry（transaction service CreateTransaction）
     
-        4.4.2. 后台发送交易任务（transaction cron SendTransaction）
+        4.5.2. 后台发送交易任务（transaction cron SendTransaction）
     
-            4.4.2.1. Build交易
+            4.5.2.1. Build交易
 
-            4.4.2.2. 交易签名（wallet service Sign）
+            4.5.2.2. 交易签名（wallet service Sign）
 
-            4.4.2.3. 发送交易
+            4.5.2.3. 发送交易
 
-        4.4.3. 后台确认交易任务（transaction cron ConfirmTransaction）
+        4.5.3. 后台确认交易任务（transaction cron ConfirmTransaction）
 
-            4.4.3.1. 后台确认完成后，调用存证确认接口将成功、失败状态通过outTradeId返回给存证服务（evid server ConfirmEvidStatus）
+            4.5.3.1. 后台确认完成后，调用存证确认接口将成功、失败状态通过outTradeId返回给存证服务（evid server ConfirmEvidStatus）
 
 5. 后台使用之前传入的outTradeId查询（兜底补偿）交易状态，存证创建服务内容创建2分钟后再开始补偿确认（evid cron ConfirmEvidence）
 
