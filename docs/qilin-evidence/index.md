@@ -13,7 +13,7 @@
 
 4. tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
-    4.1. 获取 tenant admin 默认钱包（wallet service ListWallets）
+    4.1. 获取 tenant admin 默认钱包（wallet service GetWalletMe）
 
     4.2. 获取 tenant admin 企业认证信息（iam service ListTenantsKYC）
 
