@@ -13,15 +13,17 @@
 
 4. tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
-    4.1. 创建存证事务（evid service）
+    4.1. 获取 tenant admin 默认钱包（wallet service GetWalletMe）
 
-    4.2. 创建存证（evid service）
+    4.2. 创建存证事务，注：4.3存证创建失败，则存证事务作为脏数据存储在数据库中（evid service）
 
-    4.3. 获取 tenant admin 默认钱包（wallet service GetWalletMe）
+        4.2.1. （二阶段）后续增加识蛛的实名认证，并获取认证的时间戳
 
-    4.4. 调用交易服务发送交易，得到交易id（transaction service）
+    4.3. 创建存证，状态（builded）（evid service）
 
-        4.4.1. 创建交易任务，返回交易id（transaction service）
+    4.4. 调用交易服务发送交易，传入outTradeId作为幂等号（transaction service CreateTransaction）
+
+        4.4.1. 创建交易任务，由于存证outTradeId，所以可以retry（transaction service CreateTransaction）
     
         4.4.2. 后台发送交易任务（transaction cron SendTransaction）
     
@@ -33,7 +35,13 @@
 
         4.4.3. 后台确认交易任务（transaction cron ConfirmTransaction）
 
-5. 后台使用交易id查询交易状态（evid cron ConfirmEvidence）
+            4.4.3.1. 后台确认完成后，调用存证确认接口将成功、失败状态通过outTradeId返回给存证服务（evid server ConfirmEvidStatus）
+
+5. 后台使用之前传入的outTradeId查询（兜底补偿）交易状态，存证创建服务内容创建2分钟后再开始补偿确认（evid cron ConfirmEvidence）
+
+    5.1. 查询交易状态（transaction service）
+
+        5.1.1. 返回查询状态（未找到->failed、发送中、成功->succeed、失败->failed），更新存证状态（succeed、failed）
 
 6. tenant admin 可以查看到存证记录（evid aggr ListEvidence）
 
