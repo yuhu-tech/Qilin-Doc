@@ -47,7 +47,7 @@
 
 4. tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
-5. 后台使用之前传入的outTradeId查询（一致性补偿）交易状态，存证创建服务内容创建2分钟后再开始补偿确认（evid cron ConfirmEvidence）
+5. 后端 cron job 进行区块链交易状态的确认（evid cron ConfirmEvidence）
 
 6. tenant admin 可以查看到存证记录（evid aggr ListEvidence）
 
@@ -67,13 +67,13 @@ tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
 4.3. 创建存证事务，附带上企业认证信息，注：4.4存证创建失败，则存证事务作为脏数据存储在数据库中（evid service）
 
-    4.3.1. （二阶段）后续增加识蛛的实名认证，并获取认证的时间戳
+    4.3.1.（二阶段）后续增加识蛛的实名认证，并获取认证的时间戳
 
 4.4. 创建存证，状态（builded）（evid service）
 
-4.5. 调用交易服务发送交易，传入outTradeId作为幂等号（transaction service CreateTransaction）
+4.5. 调用交易服务发送交易，传入 outTradeId 作为幂等号（transaction service CreateTransaction）
 
-    4.5.1. 创建交易任务，由于存证outTradeId，所以可以retry（transaction service CreateTransaction）
+    4.5.1. 创建交易任务，由于存证 outTradeId，所以可以 retry（transaction service CreateTransaction）
 
     4.5.2. 后台发送交易任务（transaction cron SendTransaction）
 
@@ -85,19 +85,23 @@ tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
     4.5.3. 后台确认交易任务（transaction cron ConfirmTransaction）
 
-        4.5.3.1. 后台确认完成后，调用存证确认接口将成功、失败状态通过outTradeId返回给存证服务（evid server ConfirmEvidStatus）
+        4.5.3.1. 后台确认完成后，修改 Record 交易状态。
+
+        4.5.3.2.（后续考虑的性能优化方案）将 outTradeId 已经被确认的消息发送到消息队列，让调用方更实时的获取到交易结果数据。
 ```
 
-### 存证状态一致性补偿场景系统流程
+### 存证状态确认场景系统流程
 
 TODO: 图
 
-后台使用之前传入的outTradeId查询（一致性补偿）交易状态，存证创建服务内容创建2分钟后再开始补偿确认（evid cron ConfirmEvidence）
+后端 cron job 进行区块链交易状态的确认（evid cron ConfirmEvidence）
 
 ```
 5.1. 查询交易状态（transaction service）
 
-    5.1.1. 返回查询状态（未找到->failed、发送中、成功->succeed、失败->failed），更新存证状态（succeed、failed）
+    5.1.1. 存证状态更新（发送中->忽略更新、成功->succeed、失败->failed）。
+
+    5.1.2. 如果查询到的状态为「未找到」，则需要判断数据库中存证创建时间距离当下时间，是否已经超过两分钟，如果超过两分钟则将存证状态更新为 failed，否则忽略更新。
 ```
 
 ## 三、子系统1设计（存证聚合子系统）
