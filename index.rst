@@ -38,6 +38,10 @@ Qilin所有子系统独立存在，均可独立部署，独立提供服务。
 
 各子系统简介
 --------------------------------------------------
+账户服务
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+`Qilin-IAM <./docs/qilin-iam/index.html>`_
+
 钱包服务
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 `Qilin-Wallet <./docs/qilin-wallet/index.html>`_
@@ -68,6 +72,7 @@ Qilin所有子系统独立存在，均可独立部署，独立提供服务。
    :maxdepth: 2
 
    ./docs/qilin/quick-start.md
+   ./docs/qilin-iam/index.md
    ./docs/qilin-wallet/index.md
    ./docs/qilin-transaction/index.md
    ./docs/qilin-evidence/index.md
