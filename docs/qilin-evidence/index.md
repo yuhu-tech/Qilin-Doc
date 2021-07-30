@@ -260,26 +260,28 @@ type EvidenceInterface interface {
 
 ### 1.创建可信存证
 
-接口描述：创建存证
+接口描述：创建存
 
 接口地址：http://119.3.106.151:10100/v1/app/evidences
 
 请求类型：POST 
 
-请求参数：
-|编号|名称|类型|是否必须|描述|
-|-----|-----|-----|-----|-----|
-|1|tenant_id|string|是|用户的租户id|
-|2|title|string|是|若为文件存证，则此字段为文件名，否则为本次存证的标题|
-|3|content|byte|否|为文件存证或原文存证时必传，要求转为base64格式，摘要存证时不使用本参数|
-|4|digest|string|否|摘要存证时必填|
-|5|evidence_type|string|是|存证类型，文件存证：file, 原文存证：text, 摘要存证：digest|
-|6|tsr|bool|是|是否使用可信时间戳|
+请求参数：  
 
-响应参数
-|编号|名称|类型|描述|
-|-----|-----|-----|-----|
-|1|evidence_id|string|存证编号|
+| 编号 | 名称 | 类型 | 是否必须 | 描述 |  
+| --- | --- | --- | --- | --- |  
+| 1   | tenant_id     | string | 是      | 用户的租户id |  
+| 2   | title         | string | 是      | 若为文件存证，则此字段为文件名，否则为本次存证的标题 |  
+| 3   | content       | byte   | 否      | 为文件存证或原文存证时必传，要求转为base64格式，摘要存证时不使用本参数 |  
+| 4   | digest        | string | 否      | 摘要存证时必填 |  
+| 5   | evidence_type | string | 是      | 存证类型，文件存证：file, 原文存证：text, 摘要存证：digest, 摘要存证：digest |  
+| 6   | tsr           | bool   | 是      | 是否使用可信时间戳 |  
+
+响应参数  
+
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|evidence_id|string|存证编号|  
 
 请求实例：
 ```
@@ -311,22 +313,24 @@ curl -X POST "http://119.3.106.151:10100/v1/app/evidences" -H "accept: applicati
 
 请求类型：GET
 
-请求参数：
-|编号|名称|类型|是否必须|描述|
-|-----|-----|-----|-----|-----|
-|1|limit|uint32|否|本次查询的限制数量，默认为10|
-|2|offset|uint32|否|本次查询的偏移量,默认为0|
-|3|tenant_id|uint32|是|用户的租户id|
+请求参数：  
 
-响应参数
-|编号|名称|类型|描述|
-|-----|-----|-----|-----|
-|1|evidences|array|存证数组|
-|1.1|evidence_id|string|存证编号|
-|1.2|txhash|string|存证交易哈希|
-|1.3|status|string|存证状态，交易已发送：builded, 成功：succeed，失败：failed|
-|1.4|title|string|存证标题，若为文件存证则为文件名|
-|1.5|push_time|timestamp|存证上链时间|
+|编号|名称|类型|是否必须|描述|  
+|-----|-----|-----|-----|-----|  
+|1|limit|uint32|否|本次查询的限制数量，默认为10|  
+|2|offset|uint32|否|本次查询的偏移量,默认为0|  
+|3|tenant_id|uint32|是|用户的租户id|  
+
+响应参数 
+
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|evidences|array|存证数组|  
+|1.1|evidence_id|string|存证编号|  
+|1.2|txhash|string|存证交易哈希|  
+|1.3|status|string|存证状态，交易已发送：builded, 成功：succeed，失败：failed|  
+|1.4|title|string|存证标题，若为文件存证则为文件名|  
+|1.5|push_time|timestamp|存证上链时间|  
 
 请求示例：
 ```
@@ -356,19 +360,21 @@ curl -X GET "http://119.3.106.151:10100/v1/app/evidences?limit=10&offset=0&tenan
 
 请求类型：POST
 
-请求参数：
-|编号|名称|类型|是否必须|描述|
-|-----|-----|-----|-----|-----|
-|1|txhash|string|是|存证的交易hash|
-|2|content|byte|否|存证内容，base64格式，为文件存证或原文存证时必传|
-|3|digest|string|否|存证摘要，为摘要存证时必传|
-|4|evidence_type|string|是|存证类型，文件存证：file, 原文存证：text, 摘要存证：digest|
+请求参数：  
 
-响应参数：
-|编号|名称|类型|描述|
-|-----|-----|-----|-----|
-|1|verify_result|string|存证核验结果， 成功：succeed， 失败：failed|
-|2|push_time|timestamp|存证上链时间|
+|编号|名称|类型|是否必须|描述|  
+|-----|-----|-----|-----|-----|  
+|1|txhash|string|是|存证的交易hash|  
+|2|content|byte|否|存证内容，base64格式，为文件存证或原文存证时必传|  
+|3|digest|string|否|存证摘要，为摘要存证时必传|  
+|4|evidence_type|string|是|存证类型，文件存证：file, 原文存证：text, 摘要存证：digest|  
+
+响应参数：  
+
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|verify_result|string|存证核验结果， 成功：succeed， 失败：failed|  
+|2|push_time|timestamp|存证上链时间|  
 
 请求示例：
 ```
