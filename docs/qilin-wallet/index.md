@@ -43,4 +43,103 @@
 
 ## 五、聚合层接口文档
 
+### 1. 创建钱包
+
+接口描述：创建钱包
+
+接口地址：http://119.3.106.151:10100/v1/app/wallets/create
+
+请求类型：POST
+
+请求参数：
+
+|编号|名称|类型|是否必须|描述|  
+|-----|-----|-----|-----|-----|  
+|1|sign_user_id|string|是|钱包所有者|  
+|2|tenant_id|string|是|用户的租户id|  
+|3|chain_instance_id|string|是|链示例id|  
+
+响应参数：
+
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|sign_user_id|string|是|钱包所有者|  
+|2|wallet_id|string|钱包id|  
+|3|address|string|钱包地址|  
+|4|chain_instance_id|string|是|链示例id|  
+
+请求示例：
+
+```
+curl -X POST "http://wsl:10000/v1/app/wallets/create" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc5MDM0NjMsImlhdCI6MTYyNzg5NjI2MywianRpIjoiMXJybDc5Mm5xMG5wNDMiLCJzdWIiOiJ1aWQtdGVuYW50In0.tAZCBRhRJGWeYqriBnptg2lLOHceF48jefb_LK1GMIUdTT5ZK83lGUqMNKxscWNHr-k0K9qAepQIZbP-hS3VKA" -H "Content-Type: application/json" -d "{ \"sign_user_id\": \"test_user\", \"tenant_id\": \"tid-yuhu1\", \"chain_instance_id\": \"1\"}"
+```
+
+```json
+{
+  "sign_user_id": "test_user",
+  "tenant_id": "tid-yuhu1",
+  "chain_instance_id": "1"
+}
+```
+
+响应示例：
+```json
+{
+  "sign_user_id": "test_user",
+  "wallet_id": "wid-xpyNMwgJZ2OB",
+  "address": "0xF1830638B3670ddb00C58881100B87C54A275747",
+  "chain_instance_id": "1"
+}
+```
+
+### 2. 导入私钥创建钱包
+
+接口描述：导入私钥创建钱包
+
+接口地址：http://119.3.106.151:10100/v1/app/wallets/import
+
+请求类型：POST 
+
+请求参数：
+
+|编号|名称|类型|是否必须|描述|
+|-----|-----|-----|-----|-----|
+|1|sign_user_id|string|是|钱包所有者|  
+|2|tenant_id|string|是|用户的租户id|  
+|3|pk|string|是|私钥|
+|4|chain_instance_id|string|是|链示例id|  
+
+响应参数：
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|sign_user_id|string|是|钱包所有者|  
+|2|wallet_id|string|钱包id|  
+|3|address|string|钱包地址|  
+|4|chain_instance_id|string|是|链示例id|  
+
+
+请求示例：
+```
+curl -X POST "http://wsl:10000/v1/app/wallets/import" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc5MDM0NjMsImlhdCI6MTYyNzg5NjI2MywianRpIjoiMXJybDc5Mm5xMG5wNDMiLCJzdWIiOiJ1aWQtdGVuYW50In0.tAZCBRhRJGWeYqriBnptg2lLOHceF48jefb_LK1GMIUdTT5ZK83lGUqMNKxscWNHr-k0K9qAepQIZbP-hS3VKA" -H "Content-Type: application/json" -d "{ \"sign_user_id\": \"test-user\", \"tenant_id\": \"tid-yuhu1\", \"pk\": \"b158a6a4b55f475940773f99c1dc04bd61aafd0c51c9cc18de429602d4f0f174\", \"chain_instance_id\": \"1\"}"
+```
+
+```json
+{
+  "sign_user_id": "test-user",
+  "tenant_id": "tid-yuhu1",
+  "pk": "b158a6a4b55f475940773f99c1dc04bd61aafd0c51c9cc18de429602d4f0f174",
+  "chain_instance_id": "1"
+}
+```
+
+响应示例：
+```json
+{
+  "sign_user_id": "test-user",
+  "wallet_id": "wid-oKO3Q1nwp2zJ",
+  "address": "0x9131C3B95171AD9027dC15ca7A8f2B36B78366ad",
+  "chain_instance_id": "1"
+}
+```
+
 ## 六、服务层接口文档
