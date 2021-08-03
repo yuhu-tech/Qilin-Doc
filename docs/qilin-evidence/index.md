@@ -4,6 +4,10 @@
 
 可信存证服务平台是链服生态中由域乎官方提供的可信存证服务，底层使用的是域乎可信存证联盟链，是直接提供给外部机构使用的业务产品，承担着公司创收的⽬标任务。
 
+### 业务流程
+
+![存证业务流程](../../images/qilin/evidence/evid.png)
+
 ### 功能概述
 
 系统主要功能包括：
@@ -36,7 +40,7 @@
 
 ### 系统架构
 
-![qilin_evidence](../../images/qilin/qilin-evidence.png)
+![存证系统架构图](../../images/qilin/evidence/structure.png)
 
 ```
 1. platform admin 创建一个普通用户（iam aggr CreateUser）
@@ -56,7 +60,7 @@
 
 ### 创建存证场景系统流程
 
-TODO: 图
+![存证系统流程](../../images/qilin/evidence/evid-bpmn.png)
 
 tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
@@ -92,7 +96,7 @@ tenant admin 使用创建存证功能（evid aggr CreateEvidence）
 
 ### 存证状态确认场景系统流程
 
-TODO: 图
+![存证确认流程图](../../images/qilin/evidence/cron.png)
 
 后端 cron job 进行区块链交易状态的确认（evid cron ConfirmEvidence）
 
@@ -114,7 +118,7 @@ TODO: 图
 
 ### 子系统组件结构关系
 
-TODO: 图
+![组件结构关系](../../images/qilin/evidence/Component.png)
 
 ⼦系统2包含4个组件： 
 
@@ -124,19 +128,19 @@ TODO: 图
 
 - 组件3（Model）的功能主要是提供贫血模式的业务数据模型， 不依赖其他组件。
 
-- 组件4（Data）的功能主要是提数据的获取和持久化， 不依赖其他组件，其内部分装各种持久化方式，如：mysql、redis、local_cache。
+- 组件4（Data）的功能主要是数据的获取和持久化，其内部分装各种持久化方式，如：mysql、redis、local_cache。
 
 ### 创建存证事务功能组件流程
 
-TODO: 图
+![存证事务](../../images/qilin/evidence/trans.png)
 
-### 创建摘要存证功能组件流程
+### 创建存证功能组件流程
 
-TODO: 图
+![存证功能组件流程](../../images/qilin/evidence/operation-flow.png)
 
 ### 组件1类图
 
-TODO: 图
+![service类图](../../images/qilin/evidence/service.png)
 
 EvidenceService interface
 
@@ -154,11 +158,11 @@ type EvidenceServiceClient interface {
 
 ### 组件2类图
 
-cron
+![cron类图](../../images/qilin/evidence/cron-uml.png)
 
 ### 组件3类图
 
-TODO: 图
+![model类图](../../image/../images/qilin/evidence/model.png)
 
 Evidence model
 
@@ -216,7 +220,7 @@ type EvidenceTransBinding struct {
 
 ### 组件4类图
 
-TODO: 图
+![EvidenceData interface](../../images/qilin/evidence/dataInterface.png)
 
 EvidenceData interface
 
@@ -226,31 +230,15 @@ type EvidenceInterface interface {
 	UpdateEvidence(*evidence.Evidence, *db.Filter) error
 	SearchEvidence(*db.Filter) ([]*evidence.Evidence, error)
 	GetEvidence(evidenceId string) (*evidence.Evidence, error)
-	DeleteEvidence(evidenceId string) error
-	ListEvidences() ([]*evidence.Evidence, error)
 	GetEvidenceByTxHash(txHash string) (*evidence.Evidence, error)
 	SearchEvidencePaged(filter *db.Filter, limit uint32, offset uint32) ([]*evidence.Evidence, error)
 
 	CreateEvidTrans(*evidence.Evidtrans) error
-	UpdateEvidTrans(*evidence.Evidtrans) error
-	SearchEvidTrans(*db.Filter) ([]*evidence.Evidtrans, error)
-	GetEvidTrans(evidtransId string) (*evidence.Evidtrans, error)
-	DeleteEvidTrans(evidtransId string) error
-	ListEvidTrans() ([]*evidence.Evidtrans, error)
 
 	CreateEvidContent(*evidence.EvidenceContent) error
-	UpdateEvidContent(*evidence.EvidenceContent) error
-	SearchEvidContent(*db.Filter) (*[]evidence.EvidenceContent, error)
 	GetEvidContent(evidenceId string) (*evidence.EvidenceContent, error)
-	DeleteEvidContent(evidenceId string) error
-	ListEvidContent() ([]*evidence.EvidenceContent, error)
 
 	CreateEvidTransBind(*evidence.EvidenceTransBinding) error
-	UpdateEvidTransBind(*evidence.EvidenceTransBinding) error
-	SearchEvidTransBind(*db.Filter) (*[]evidence.EvidenceTransBinding, error)
-	GetEvidTransBind(bindId string) (*evidence.EvidenceTransBinding, error)
-	DeleteEvidTransBind(bindId string) error
-	ListEvidTransBind() ([]*evidence.EvidenceTransBinding, error)
 
 	CreateVerify(*evidence.EvidenceVerifyRecord) error
 }
@@ -260,7 +248,7 @@ type EvidenceInterface interface {
 
 ### 1.创建可信存证
 
-接口描述：创建存
+接口描述：创建存证
 
 接口地址：http://119.3.106.151:10100/v1/app/evidences
 
