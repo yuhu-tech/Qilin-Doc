@@ -162,7 +162,7 @@ type EvidenceServiceClient interface {
 
 ### 组件3类图
 
-![model类图](../../image/../images/qilin/evidence/model.png)
+![model类图](../../images/qilin/evidence/model.png)
 
 Evidence model
 
