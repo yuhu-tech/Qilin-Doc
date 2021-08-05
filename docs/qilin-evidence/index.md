@@ -363,6 +363,9 @@ curl -X GET "http://119.3.106.151:10100/v1/app/evidences?limit=10&offset=0&tenan
 |-----|-----|-----|-----|  
 |1|verify_result|string|存证核验结果， 成功：succeed， 失败：failed|  
 |2|push_time|timestamp|存证上链时间|  
+|3|block_number|string|区块高度|
+|4|block_hash|string|区块hash|
+|5|txhash|string|交易hash|
 
 请求示例：
 ```
@@ -381,7 +384,10 @@ curl -X POST "http://119.3.106.151:10100/v1/app/evidences:verify" -H "accept: ap
 ```json
 {
   "verify_result": "succeed",
-  "push_time": "2021-07-27T08:09:07Z"
+  "push_time": "2021-07-27T08:09:07Z",
+  "block_number": "225",
+  "block_hash": "0x5045f61eb8c99b4706df52c560a490abe4a9e9df0fc0a62d1af4cf030ecb1146",
+  "txhash": "0x58f421bfc90ee6f2b9a3cfe54824dbb7d5b16df59cd972033147936cf86154f7"
 }
 ```
 
