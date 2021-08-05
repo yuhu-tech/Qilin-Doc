@@ -1,4 +1,4 @@
-# 使用Qilin开发区块链应用
+# 使用 Qilin 开发区块链应用
 
 ## 一、Open API 接入说明
 
@@ -7,58 +7,62 @@
 
 目前只提供了 golang 调用事例，后续会提供 Java、Go、Python 等多种不同语言的签名SDK和调用示例。
 
-### 获取AK/SK
+### 获取 AK/SK
 目前采用用企业合作，直接提供方式；后续将提供获取AK/SK的API
 
-## AK/SK签名认证算法详解
+## 二、AK/SK 签名认证算法详解
 
-### AK/SK签名认证流程
+### AK/SK 签名认证流程
 
 客户端涉及的AK/SK签名以及请求发送的流程概述如下：
 
 1. [构造规范请求](#构造规范的请求);
-将待发送的请求内容按照与`QILIN API`后台约定的规则组装，确保客户端签名和后台认证时使用的请求内容一致。
+将待发送的请求内容按照与 `QILIN API` 后台约定的规则组装，确保客户端签名和后台认证时使用的请求内容一致。
 
 1. [生成待签字符串](#生成待签字符串);
-利用`规范请求`和`其他信息`生成待签字符串
+利用 `规范请求` 和 `其他信息` 生成待签字符串
 
 3. [生成PrivateKey](#生成privatekey);
-利用`AK/SK`和`其他信息`生成PrivateKey
+利用 `AK/SK` 和 `其他信息` 生成 PrivateKey
 
 4. [计算签名](#计算签名);
-利用`待签字符串`和`PrivateKey`计算签名
+利用 `待签字符串` 和 `PrivateKey` 计算签名
 
-5. 将生成的`签名`作为请求消息头[添加到HTTP请求中](#添加签名到请求头)
+5. 将生成的 `签名` 作为请求消息头[添加到HTTP请求中](#添加签名到请求头)
 
 说明：
 主要用于帮助用户自行完成API请求的签名，后续提供的sdk将与本章节逻辑一致
 
 ### 讲解案例
 接下来我们以如下 `POST` 请求为例子开始说明整个流程
+
 **AK/SK:**
 ```
 AK: 0uOQ9R01VCgRldX0couHypaCfOaATbU47787
 SK: 4bkgnDuAllo0gxKZfTRprZl0j4CGb18EJ2j0
 ```
-**请求数据:**
-```json
-    header:
-        Authorization: YUHU1-HMAC-SHA256 Credential=test_ak/20210804/cn-shanghai-1/iam/yuhu1_request
-        x-yuhu-date: 20210804T141238Z
-    method: POST
-    url: http://consoletest.yuhu.tech/api/v1/app/evidences?b=sidebar&a=1
-    body:
-    {
-        "skip": 1,
-        "first": 2,
-        "params": {
-            "contract_address": "0x0",
-            "tx_hash": "0x0",
-            "to": "0x0"
-        }
-    }
 
-````
+**请求数据:**
+```
+header:
+    Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=签名
+    x-yuhu-date: 20210804T141238Z
+
+method: POST
+
+url: http://consoletest.yuhu.tech/api/v1/app/evidences?b=sidebar&a=1
+
+body:
+{
+    "skip": 1,
+    "first": 2,
+    "params": {
+        "contract_address": "0x0",
+        "tx_hash": "0x0",
+        "to": "0x0"
+    }
+}
+```
 
 ### 构造规范的请求
 
@@ -68,18 +72,18 @@ SK: 4bkgnDuAllo0gxKZfTRprZl0j4CGb18EJ2j0
 
 | header        | 格式                                                   |
 | ------------- | ------------------------------------------------------ |
-| Authorization | YUHU1-HMAC-SHA256 Credential=ak/⽇期/区域/服务/结束标志 |
+| Authorization | YUHU1-HMAC-SHA256 Credential=ak/⽇期/区域/服务/结束标志,Signature=签名 |
 | x-yuhu-date   | ISO8601标准(YYYYMMDDTHHMMSSZ)                          |
 
-⚠️`Authorization` 里的⽇期格式为 `YYYYMMDD`
+⚠️ `Authorization` 里的⽇期格式为 `YYYYMMDD`
 
 例如
 ```
-Authorization: YUHU1-HMAC-SHA256 Credential=test_ak/20210804/cn-shanghai-1/iam/yuhu1_request
+Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
 x-yuhu-date: 20210804T141238Z
 ```
 
-### 生成待签字符串
+### 生成待签名符串
 1. 获取 `Payload`
 
 把URl和请求体中的参数按照参数名ASCII码从小到大排序（字典序），使用URL键值对的格式（即key1=value1&key2=value2...）拼接成字符串   `Payload`
@@ -97,7 +101,7 @@ payload=`{"skip":1,"first":2,"params":{"contract_address":"0x0","tx_hash":"0x0",
 
 2. 生成待签数据
 
-利用上一步获取的 `Payload`与`签名算法、签名时间`一同生成待签名字符串
+利用上一步获取的 `Payload` 与 `签名算法、签名时间` 一同生成待签名字符串
 ```
 toSignedString=HMAC(HMAC(Algorithm,RequestDateTime),Payload)
 ```
@@ -120,20 +124,20 @@ toSignedString=HMAC(HMAC(Algorithm,RequestDateTime),Payload)
 ```
 
 ### 生成PrivateKey
-通过 `请求头`和`SK` 获取 private_key
+通过 `请求头` 和 `SK` 获取 private_key
 ```
 private_key=HMAC(HMAC(HMAC(HMAC(AlgorithmHeader + SK,Date),Area),Service),EndFlag)
 ```
 上述伪码中各个参数含义如下：
 - AlgorithmHeader
 
-  对应 `YUHU1-HMAC-SHA256`中的 `YUHU1`
+  对应 `YUHU1-HMAC-SHA256` 中的 `YUHU1`
 - SK
 
   用户AK对应的签名私钥
 - Date
 
-  对应请求头 [Authorization](#构造规范的请求) 中的 `日期`(YYYYMMDD)
+  对应请求头 [Authorization](#构造规范的请求) 中的 `日期`（YYYYMMDD）
 - Area
 
   对应请求头 [Authorization](#构造规范的请求) 中的 `区域`
@@ -154,6 +158,7 @@ HMAC要求与[生成待签字符串](#生成待签字符串)中一致
 ### 计算签名
 
 利用 `待签数据` 和 `PrivateKey` 进行签名
+
 伪码如下：
 ```
 signature = HexEncode(HMAC(private_key, to_be_sign_data))
@@ -166,8 +171,10 @@ eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
 ```
 
 ### 添加签名到请求头
-将计算出来的 `signature` 添加到请求头`Authorization`的最后，使用 ',' 分割
-按照[讲解案例](#讲解案例)中的数据，添加 `signature` 后，请求头为
+将计算出来的 `signature` 添加到请求头 `Authorization` 的最后，使用 ',' 分割
+
+按照[讲解案例](#讲解案例)中的数据，添加 `signature` 后，请求头为：
+
 ```
 Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
 ```
