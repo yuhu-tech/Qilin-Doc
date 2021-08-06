@@ -45,7 +45,7 @@ SK: 4bkgnDuAllo0gxKZfTRprZl0j4CGb18EJ2j0
 **请求数据:**
 ```
 header:
-    Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=签名
+    Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=待计算签名
     x-yuhu-date: 20210804T141238Z
 
 method: POST
@@ -70,10 +70,10 @@ body:
 
 消息头必须包含 `x-yuhu-date` 以及 `Authorization`，用于校验签名
 
-| header        | 格式                                                   |
-| ------------- | ------------------------------------------------------ |
+| header        | 格式                                                                  |
+| ------------- | --------------------------------------------------------------------- |
 | Authorization | YUHU1-HMAC-SHA256 Credential=ak/⽇期/区域/服务/结束标志,Signature=签名 |
-| x-yuhu-date   | ISO8601标准(YYYYMMDDTHHMMSSZ)                          |
+| x-yuhu-date   | ISO8601标准(YYYYMMDDTHHMMSSZ)                                         |
 
 ⚠️ `Authorization` 里的⽇期格式为 `YYYYMMDD`
 
@@ -96,7 +96,7 @@ x-yuhu-date: 20210804T141238Z
 
 按照[讲解案例](#讲解案例)中的数据，应获取 Payload 如下：
 ```go
-payload=`{"skip":1,"first":2,"params":{"contract_address":"0x0","tx_hash":"0x0","to":"0x0"}}`
+`{"skip":1,"first":2,"params":{"contract_address":"0x0","tx_hash":"0x0","to":"0x0"}}`
 ```
 
 2. 生成待签数据
@@ -111,10 +111,10 @@ toSignedString=HMAC(HMAC(Algorithm,RequestDateTime),Payload)
   签名算法，对于 SHA256 使用 `YUHU1-HMAC-SHA256`
 - RequestDateTime
 
-  请求时间，即请求头中的 `x-yuhu-date` (ISO8601标准 YYYYMMDDTHHMMSSZ)
+  请求时间，即请求头中的 `x-yuhu-date` (案例：20210804T141238Z)
 - Payload
 
-  请求数据，即上一步通过URL和Body获取的字符串
+  请求数据，即上一步通过URL和Body获取的字符串（`{"skip":1,"first":2,"params":{"contract_address":"0x0","tx_hash":"0x0","to":"0x0"}}`）
 
 ⚠️ 如果 Algorithm 采用 `YUHU1-HMAC-SHA256`， 那么 HMAC 也要使用 SHA256算法
 
@@ -177,4 +177,5 @@ eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
 
 ```
 Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
+x-yuhu-date: 20210804T141238Z
 ```
