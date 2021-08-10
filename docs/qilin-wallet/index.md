@@ -112,10 +112,10 @@ curl -X POST "http://wsl:10000/v1/app/wallets/create" -H "accept: application/js
 响应参数：
 |编号|名称|类型|描述|  
 |-----|-----|-----|-----|  
-|1|sign_user_id|string|是|钱包所有者|  
+|1|sign_user_id|string|钱包所有者|  
 |2|wallet_id|string|钱包id|  
 |3|address|string|钱包地址|  
-|4|chain_instance_id|string|是|链示例id|  
+|4|chain_instance_id|string|链示例id|  
 
 
 请求示例：
