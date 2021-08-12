@@ -272,8 +272,12 @@ type EvidenceInterface interface {
 |1|evidence_id|string|存证编号|  
 
 请求实例：
-```
-curl -X POST "http://119.3.106.151:10100/v1/app/evidences" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc2MjAwODUsImlhdCI6MTYyNzYxMjg4NSwianRpIjoicXd6bHczeTgyMDduN2wiLCJzdWIiOiJ1aWQtdGVuYW50In0.eNEuMd4A9IWC4tnFOHXIpgknde-Kgt3P_Hpipj9DtGl6kcXj_lhD07En1lXR-AQH1h5faAm9wNrBY50HvlV9Cw" -H "Content-Type: application/json" -d "{ \"tenant_id\": \"tid-yuhu1\", \"title\": \"evidence\", \"content\": \"ZXZpZGVuY2U=\", \"evidence_type\": \"text\", \"tsr\": true}"
+```bash
+curl -X POST "http://119.3.106.151:10100/v1/app/evidences" \
+	-H "accept: application/json" \
+	-H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc2MjAwODUsImlhdCI6MTYyNzYxMjg4NSwianRpIjoicXd6bHczeTgyMDduN2wiLCJzdWIiOiJ1aWQtdGVuYW50In0.eNEuMd4A9IWC4tnFOHXIpgknde-Kgt3P_Hpipj9DtGl6kcXj_lhD07En1lXR-AQH1h5faAm9wNrBY50HvlV9Cw" \
+	-H "Content-Type: application/json" \
+	-d "{ \"tenant_id\": \"tid-yuhu1\", \"title\": \"evidence\", \"content\": \"ZXZpZGVuY2U=\", \"evidence_type\": \"text\", \"tsr\": true}"
 ```
 
 ```json
@@ -321,8 +325,10 @@ curl -X POST "http://119.3.106.151:10100/v1/app/evidences" -H "accept: applicati
 |1.5|push_time|timestamp|存证上链时间|  
 
 请求示例：
-```
-curl -X GET "http://119.3.106.151:10100/v1/app/evidences?limit=10&offset=0&tenant_id=tid-yuhu1" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc2MjAwODUsImlhdCI6MTYyNzYxMjg4NSwianRpIjoicXd6bHczeTgyMDduN2wiLCJzdWIiOiJ1aWQtdGVuYW50In0.eNEuMd4A9IWC4tnFOHXIpgknde-Kgt3P_Hpipj9DtGl6kcXj_lhD07En1lXR-AQH1h5faAm9wNrBY50HvlV9Cw"
+```bash
+curl -X GET "http://119.3.106.151:10100/v1/app/evidences?limit=10&offset=0&tenant_id=tid-yuhu1" \
+	-H "accept: application/json" \
+	-H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc2MjAwODUsImlhdCI6MTYyNzYxMjg4NSwianRpIjoicXd6bHczeTgyMDduN2wiLCJzdWIiOiJ1aWQtdGVuYW50In0.eNEuMd4A9IWC4tnFOHXIpgknde-Kgt3P_Hpipj9DtGl6kcXj_lhD07En1lXR-AQH1h5faAm9wNrBY50HvlV9Cw"
 ```
 
 响应示例：
@@ -368,8 +374,12 @@ curl -X GET "http://119.3.106.151:10100/v1/app/evidences?limit=10&offset=0&tenan
 |5|txhash|string|交易hash|
 
 请求示例：
-```
-curl -X POST "http://119.3.106.151:10100/v1/app/evidences:verify" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc2MjA2MzQsImlhdCI6MTYyNzYxMzQzNCwianRpIjoiNDR6cDN4MDE0cG45bnoiLCJzdWIiOiJ1aWQtdGVuYW50In0.QLuUBa6oZQ1GjtzT4iXWc20CkRdG2AUTfeDfoM9mr8A--BIFRjHS11aRWynNAwr7O5bXNcg02GYMIHEWsyitVw" -H "Content-Type: application/json" -d "{ \"txhash\": \"0x58f421bfc90ee6f2b9a3cfe54824dbb7d5b16df59cd972033147936cf86154f7\", \"content\": \"dGVzdC1ldmlkZW5jZQ==\", \"evidence_type\": \"text\"}"
+```bash
+curl -X POST "http://119.3.106.151:10100/v1/app/evidences:verify" \
+	-H "accept: application/json" \
+	-H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjc2MjA2MzQsImlhdCI6MTYyNzYxMzQzNCwianRpIjoiNDR6cDN4MDE0cG45bnoiLCJzdWIiOiJ1aWQtdGVuYW50In0.QLuUBa6oZQ1GjtzT4iXWc20CkRdG2AUTfeDfoM9mr8A--BIFRjHS11aRWynNAwr7O5bXNcg02GYMIHEWsyitVw" \
+	-H "Content-Type: application/json" \
+	-d "{ \"txhash\": \"0x58f421bfc90ee6f2b9a3cfe54824dbb7d5b16df59cd972033147936cf86154f7\", \"content\": \"dGVzdC1ldmlkZW5jZQ==\", \"evidence_type\": \"text\"}"
 ```
 
 ```json

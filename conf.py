@@ -17,11 +17,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Qilin'
-copyright = '2020, yuhu tech'
+copyright = '2021, yuhu tech'
 author = 'chenqing'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.0.1'
+release = 'v0.0.2'
 
 
 # -- General configuration ---------------------------------------------------
@@ -32,7 +32,8 @@ release = 'v0.0.1'
 extensions = [
     'sphinx_rtd_theme',
     'recommonmark',
-    'sphinx_markdown_tables'
+    'sphinx_markdown_tables',
+    'sphinx_copybutton'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
