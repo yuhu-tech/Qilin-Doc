@@ -38,24 +38,23 @@
 
 **AK/SK:**
 ```
-AK: 0uOQ9R01VCgRldX0couHypaCfOaATbU47787
-SK: 4bkgnDuAllo0gxKZfTRprZl0j4CGb18EJ2j0
+AK: test-ak
+SK: test-sk
 ```
 
 **请求数据:**
 ```
-header:
-    Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=待计算签名
-    x-yuhu-date: 20210804T141238Z
-
-method: POST
-
+Content-Type: application/json
+x-yuhu-date: 20210809T143052Z
+Authorization: YUHU1-HMAC-SHA256 Credential=test-ak/20210809/cn-shanghai-1/evidence/yuhu1_request,Signature=4afa57f55360f4f338c887f8265b5697b9edae513629062c040e8e61ad3f6b3b
+Method: POST
 url: http://consoletest.yuhu.tech/api/v1/app/evidences?b=sidebar&a=1
 
 body:
 {
     "skip": 1,
     "first": 2,
+    "content": "test",
     "params": {
         "contract_address": "0x0",
         "tx_hash": "0x0",
@@ -79,8 +78,8 @@ body:
 
 例如
 ```
-Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
-x-yuhu-date: 20210804T141238Z
+Authorization: YUHU1-HMAC-SHA256 Credential=test-ak/20210809/cn-shanghai-1/evidence/yuhu1_request,Signature=待计算
+x-yuhu-date: 20210809T143052Z
 ```
 
 ### 生成待签名符串
@@ -96,7 +95,7 @@ x-yuhu-date: 20210804T141238Z
 
 按照[讲解案例](#讲解案例)中的数据，应获取 Payload 如下：
 ```go
-`{"skip":1,"first":2,"params":{"contract_address":"0x0","tx_hash":"0x0","to":"0x0"}}`
+a=1&b=sidebar&content="test"&first=2&params={"contract_address":"0x0","to":"0x0","tx_hash":"0x0"}&skip=1
 ```
 
 2. 生成待签数据
@@ -111,16 +110,16 @@ toSignedString=HMAC(HMAC(Algorithm,RequestDateTime),Payload)
   签名算法，对于 SHA256 使用 `YUHU1-HMAC-SHA256`
 - RequestDateTime
 
-  请求时间，即请求头中的 `x-yuhu-date` (案例：20210804T141238Z)
+  请求时间，即请求头中的 `x-yuhu-date` (案例：20210809T143052Z)
 - Payload
 
-  请求数据，即上一步通过URL和Body获取的字符串（`{"skip":1,"first":2,"params":{"contract_address":"0x0","tx_hash":"0x0","to":"0x0"}}`）
+  请求数据，即上一步通过URL和Body获取的字符串（`a=1&b=sidebar&content="test"&first=2&params={"contract_address":"0x0","to":"0x0","tx_hash":"0x0"}&skip=1`）
 
 ⚠️ 如果 Algorithm 采用 `YUHU1-HMAC-SHA256`， 那么 HMAC 也要使用 SHA256算法
 
-按照[讲解案例](#讲解案例)中的数据，那么生成待签数据应为：
+按照[讲解案例](#讲解案例)中的数据，那么生成待签数据应的 `hex string`(转为十六进制) 为：
 ```
-[123 146 29 7 166 122 37 73 121 220 154 166 84 154 207 249 124 223 195 102 244 205 4 222 205 77 248 109 22 27 78 178]
+ddf686a0dfde762ccf5c13e25e81271b70869de0834de99a759975e66a13fded
 ```
 
 ### 生成PrivateKey
@@ -150,9 +149,10 @@ private_key=HMAC(HMAC(HMAC(HMAC(AlgorithmHeader + SK,Date),Area),Service),EndFla
 
 HMAC要求与[生成待签字符串](#生成待签字符串)中一致
 
-按照[讲解案例](#讲解案例)中的数据(SK=4bkgnDuAllo0gxKZfTRprZl0j4CGb18EJ2j0)，那么生成的PrivateKey为：
+按照[讲解案例](#讲解案例)中的数据(SK=test-sk)，那么生成的PrivateKey的 `hex string`(转为十六进制)为：
+
 ```
-[28 79 24 51 56 24 48 124 136 41 211 198 57 172 6 51 170 101 90 79 157 146 10 254 187 150 177 201 173 133 91 49]
+31f83af9e288d0e53886b27a6f2af0c9f356eb5a100f8bcb605876f538399954
 ```
 
 ### 计算签名
@@ -167,7 +167,7 @@ signature = HexEncode(HMAC(private_key, to_be_sign_data))
 
 按照[讲解案例](#讲解案例)中的数据， 最后签名应该为：
 ```
-eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
+4afa57f55360f4f338c887f8265b5697b9edae513629062c040e8e61ad3f6b3b
 ```
 
 ### 添加签名到请求头
@@ -176,6 +176,6 @@ eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
 按照[讲解案例](#讲解案例)中的数据，添加 `signature` 后，请求头为：
 
 ```
-Authorization: YUHU1-HMAC-SHA256 Credential=0uOQ9R01VCgRldX0couHypaCfOaATbU47787/20210804/cn-shanghai-1/iam/yuhu1_request,Signature=eb8f0f7b050cda8c12045eb6565a42bfb22da6a956aceed7a1ff6bee28946ebf
-x-yuhu-date: 20210804T141238Z
+Authorization: YUHU1-HMAC-SHA256 Credential=test-ak/20210809/cn-shanghai-1/evidence/yuhu1_request,Signature=4afa57f55360f4f338c887f8265b5697b9edae513629062c040e8e61ad3f6b3b
+x-yuhu-date: 20210809T143052Z
 ```
