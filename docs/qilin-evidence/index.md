@@ -322,7 +322,8 @@ curl -X POST "http://119.3.106.151:10100/v1/app/evidences" \
 |1.2|txhash|string|存证交易哈希|  
 |1.3|status|string|存证状态，交易已发送：builded, 成功：succeed，失败：failed|  
 |1.4|title|string|存证标题，若为文件存证则为文件名|  
-|1.5|push_time|timestamp|存证上链时间|  
+|1.5|push_time|timestamp|存证上链时间|
+|1.6|file_path|string|存证文件|
 
 请求示例：
 ```bash
@@ -340,7 +341,8 @@ curl -X GET "http://119.3.106.151:10100/v1/app/evidences?limit=10&offset=0&tenan
       "txhash": "0x58f421bfc90ee6f2b9a3cfe54824dbb7d5b16df59cd972033147936cf86154f7",
       "status": "succeed",
       "title": "test-evidence",
-      "push_time": "2021-07-27T08:09:07Z"
+      "push_time": "2021-07-27T08:09:07Z",
+      "file_path": "http://consoletest.yuhu.tech/data/evidence/12/5/12/evidence_rlV6yYx7JE8g"
     }
   ]
 }
