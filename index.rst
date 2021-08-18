@@ -54,6 +54,12 @@ Qilin将区块链应用开发标准化，按照部署、配置、开发智能合
 交易服务提供给用户往区块链调用合约的http接口。本服务提供给用户两类接口，一类是通用的调用合约的接口，用户需要传入合约地址，被调用的合约方法名，以及调用参数来发送交易；另一类接口是定制的调用合约的接口，将常用的合约的方法抽象出来，用户无需关心具体被调用的方法名，仅需要传入合约地址以及定制的参数即可完成对合约方法的调用。
 
 
+智能合约服务平台
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+`Qilin-Contract <./docs/qilin-contract/index.html>`_
+智能合约服务平台是链服生态中智能合约的管理平台，提供与智能合约交互与计费的基础服务，对外是智能合约的应用商店，客户在商店中按需购买业务合约模板的资源许可证，就可以调用相应的智能合约。
+
+
 可信存证服务平台
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 `Qilin-Evidence <./docs/qilin-evidence/index.html>`_
@@ -79,6 +85,7 @@ Qilin将区块链应用开发标准化，按照部署、配置、开发智能合
    ./docs/qilin-baas/index.md
    ./docs/qilin-wallet/index.md
    ./docs/qilin-transaction/index.md
+   ./docs/qilin-contract/index.md
    ./docs/qilin-evidence/index.md
    ./docs/qilin-assets/index.md
    ./docs/qilin-provenance/index.md
