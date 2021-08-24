@@ -51,15 +51,43 @@
 
 ![计费系统架构](../../images/qilin/contract/billing.png)
 
+#### 各模块功能描述
+
 ```text
-1. 外部系统提供消费信息（event）
-    1.1 提供event的方式有两种:
-    所有平台应用都会在执行消费操作时（比如 创建存证）发送消费信息到平台消息队列;
-    用户可以将以任何形式收集到的消费信息通过计费服务提供的 restful api传递到 meter 进行计量;
-2. 负责获取所有应用产生的 消费信息（event），对 消费信息 进行过滤、格式化，统计计量值发送给 billing
-3. 负责计算费用；meter 发送来的计量值 + （用户购买的资源包 + 计费策略）= 费用
+1. ConsumeLogsHub 获取所有应用产生的消费信息，对消费信息进行过滤、格式化、统计计量...
+2. Billing 计算费用；费用 = 计量值 &（用户购买的资源包 + 计费策略）
 ```
 
+#### 各模块细节设计
+
+```text
+1. ConsumeLogsHub 获取消费日志信息的方式有两种:
+    1.1 所有平台应用都会在执行消费操作时（比如 创建存证）发送消费信息到平台消息队列;
+    1.2 用户可以将以任何形式收集到的消费信息通过计费服务提供的 restful api传递到 ConsumeLogsHub 进行计量
+2. Billing 通过corn形式定时计费
+    2.1 获取一定时间范围的计量 
+    2.2 获取租户拥有的应用资源包、租户使用的应用价格
+    2.3 根据上面获取的信息统计费用（同时扣除用户余额或资源包条数）
+```
+
+#### 业务流程
+
+ **1）创建消费日志**
+
+```text
+确认交易 （transaction cron Confirm）
+1.确认交易状态成功 -> 创建消费日志 （App service CreateConsumerLog）
+```
+
+**2）统计费用**
+
+```text
+计费汇总（App cron）
+1. 查询一定时间范围的计量（contract service Metering）
+2. 查询租户拥有的应用资源包（App service ListLicenses 入参：todo）
+3. 查询租户使用的应用价格（App service ListApps 入参：todo）
+4. 计费并扣资源包和余额 （App service CreateAppStatistics）
+```
 
 
 
