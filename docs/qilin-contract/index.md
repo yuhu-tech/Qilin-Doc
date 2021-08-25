@@ -40,15 +40,24 @@
 ## 二、详细设计
 ### 系统架构
 
+
 ### 应用模块
 
 ### 资源包模块
 ### 计费模块
+### 创建应用服务和价格
+1. seed 存证应用服务 (包含：基本信息和价格信息)
 
 采用流处理计费，伪实时的产生计费数据.
 
 目前为会以分钟为时间周期记录每个租户在每个应用的账单（包含一分钟内消费和总消费），同时消耗用户资源包或扣除余额.
 #### 系统架构
+### 配置应用服务规格
+seed admin 创建规格（ App aggr CreateAppLicenseSpec ）无需开发
+1. 查询相关的应用服务基本信息和行为信息 （ App service GetAppPriceInfo ）
+2. 根据计费点创建规格包 （ App service CreateAppLicenseSpec 无需开发 ）
+
+// admin 修改规格（ aggr UpdateAppLicenseSpec ）
 
 ![计费系统架构](../../images/qilin/contract/billing.png)
 
@@ -74,6 +83,22 @@
 #### 业务流程
 
  **1）创建消费日志**
+### 为租户生成资源包
+tenant 查看规格列表 ( aggr ListAppLicenseSpec ）
+// admin 删除规格（ aggr DeleteAppLicenseSpec ）
+
+// tenant 查看规格 ( aggr GetAppLicenseSpec ）
+
+// tenant 查看规格列表 ( aggr ListAppLicenseSpec ）
+
+// ### 规格包变更
+// todo：什么时候变更 
+
+### 为租户发放license
+admin 发放license ( app aggr CreateAppLicense ）
+1. 查询租户信息 （ iam service ListTenants:已经存在的 ）
+2. 查询应用服务规格 ( app service ListAppLicenseSpec ）
+3. 为租户创建license ( app service CreateAppLicense ）
 
 ```text
 确认交易 （transaction cron Confirm）
@@ -120,6 +145,14 @@ admin 发放license ( app aggr CreateAppLicense ）
 1. ListLicenses
 2. ListApps
 
+### app应用版本升级
+todo: 1. 应用价格升级 2. 应用规格包升级 3. 应用license升级
+
+
+### app定价
+admin 设置app价格 ( aggr SetAppPrice ）
+1. 验证admin合法性 （iam service ListTenantsKYC）
+2. 设置app价格（ service SetAppPrice ）
 ### app应用版本升级
 todo: 1. 应用价格升级 2. 应用规格包升级 3. 应用license升级
 
