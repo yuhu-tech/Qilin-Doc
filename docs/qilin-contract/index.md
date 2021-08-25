@@ -23,13 +23,24 @@
 
 ## 二、详细设计
 
-### 创建应用服务场景流程
+### 创建应用服务流程
 
 ### 配置应用服务规格
+admin 创建规格（ aggr CreateAppLicenseSpec ）
+
+admin 修改规格（ aggr UpdateAppLicenseSpec ）
+
+admin 删除规格（ aggr DeleteAppLicenseSpec ）
+
+tenant 查看规格 ( aggr GetAppLicenseSpec ）
+
+tenant 查看规格列表 ( aggr DescribeAppLicenseSpec ）
 
 ### 为租户生成资源包
 
 ### app定价
+
+
 
 
 
