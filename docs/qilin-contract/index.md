@@ -22,25 +22,38 @@
 6. 数据持久化⽬标：>99.99999%。
 
 ## 二、详细设计
+### 系统架构
+
+1. 创建应用服务规格
+2. 配置应用服务规格
+3. 为租户生成资源包
+4. app定价
 
 ### 创建应用服务流程
 
 ### 配置应用服务规格
 admin 创建规格（ aggr CreateAppLicenseSpec ）
-
+1. 验证admin合法性 （iam service ListTenantsKYC）
+2. 查询相关的应用
+3. 创建规格
 admin 修改规格（ aggr UpdateAppLicenseSpec ）
 
 admin 删除规格（ aggr DeleteAppLicenseSpec ）
 
 tenant 查看规格 ( aggr GetAppLicenseSpec ）
 
-tenant 查看规格列表 ( aggr DescribeAppLicenseSpec ）
+tenant 查看规格列表 ( aggr ListAppLicenseSpec ）
+
 
 ### 为租户生成资源包
-
 admin 创建资源包 ( aggr CreateAppLicense ）
+1. 验证admin合法性 （iam service ListTenantsKYC）
+2. 查询租户信息 （iam service ListTenantsKYC）
+3. 查询应用服务规格 ( aggr GetAppLicenseSpec ）
+4. 为租户创建资源包 ( aggr GetAppLicenseSpec ）
 
 ### app定价
-
 admin 设置app价格 ( aggr SetAppPrice ）
+1. 验证admin合法性 （iam service ListTenantsKYC）
+2. 设置app价格（ service SetAppPrice ）
 
