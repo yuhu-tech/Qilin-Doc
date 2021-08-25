@@ -37,13 +37,10 @@ tenant 查看规格 ( aggr GetAppLicenseSpec ）
 tenant 查看规格列表 ( aggr DescribeAppLicenseSpec ）
 
 ### 为租户生成资源包
+
 admin 创建资源包 ( aggr CreateAppLicense ）
 
 ### app定价
 
-
-
-
-
-
+admin 设置app价格 ( aggr SetAppPrice ）
 
