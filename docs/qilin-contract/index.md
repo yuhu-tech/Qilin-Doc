@@ -29,7 +29,7 @@
 1. seed 存证应用服务 (包含：基本信息和价格信息)
 
 ### 配置应用服务规格
-admin 创建规格（ App aggr CreateAppLicenseSpec ）
+seed admin 创建规格（ App aggr CreateAppLicenseSpec ）
 1. 查询相关的应用服务基本信息和行为信息 （ App service GetAppPriceInfo ）
 2. 根据计费点创建规格包 （ App service CreateAppLicenseSpec ）
 
