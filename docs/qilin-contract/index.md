@@ -47,7 +47,7 @@ seed admin 创建规格（ App aggr CreateAppLicenseSpec ）无需开发
 ### 为租户发放license
 admin 发放license ( app aggr CreateAppLicense ）
 1. 查询租户信息 （ iam service ListTenants:已经存在的 ）
-2. 查询应用服务规格 ( app service GetAppLicenseSpec ）
+2. 查询应用服务规格 ( app service ListAppLicenseSpec ）
 3. 为租户创建license ( app service CreateAppLicense ）
 
 ### 其他aibo需要
