@@ -30,7 +30,7 @@
 
 ### 配置应用服务规格
 admin 创建规格（ App aggr CreateAppLicenseSpec ）
-1. 查询相关的应用服务基本信息和价格信息 （ App service GetAppPriceInfo ）
+1. 查询相关的应用服务基本信息和行为信息 （ App service GetAppPriceInfo ）
 2. 根据计费点创建规格包 （ App service CreateAppLicenseSpec ）
 
 // admin 修改规格（ aggr UpdateAppLicenseSpec ）
