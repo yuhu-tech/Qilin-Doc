@@ -29,9 +29,9 @@
 1. seed 存证应用服务 (包含：基本信息和价格信息)
 
 ### 配置应用服务规格
-seed admin 创建规格（ App aggr CreateAppLicenseSpec ）
+seed admin 创建规格（ App aggr CreateAppLicenseSpec ）无需开发
 1. 查询相关的应用服务基本信息和行为信息 （ App service GetAppPriceInfo ）
-2. 根据计费点创建规格包 （ App service CreateAppLicenseSpec ）
+2. 根据计费点创建规格包 （ App service CreateAppLicenseSpec 无需开发 ）
 
 // admin 修改规格（ aggr UpdateAppLicenseSpec ）
 
@@ -49,6 +49,10 @@ admin 发放license ( app aggr CreateAppLicense ）
 1. 查询租户信息 （ iam service ListTenants:已经存在的 ）
 2. 查询应用服务规格 ( app service GetAppLicenseSpec ）
 3. 为租户创建license ( app service CreateAppLicense ）
+
+### 其他aibo需要
+1. ListLicenses
+2. ListApps
 
 ### app应用版本升级
 todo: 1. 应用价格升级 2. 应用规格包升级 3. 应用license升级
