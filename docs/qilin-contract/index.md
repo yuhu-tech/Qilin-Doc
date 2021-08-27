@@ -24,10 +24,6 @@
 ## 二、详细设计
 ### 系统架构
 
-1. 创建应用服务规格
-2. 配置应用服务规格
-3. 为租户生成资源包
-4. app定价
 
 ### 创建应用服务和价格
 1. seed 存证应用服务 (包含：基本信息和价格信息)
@@ -37,20 +33,20 @@ admin 创建规格（ App aggr CreateAppLicenseSpec ）
 1. 查询相关的应用服务基本信息和价格信息 （ App service GetAppPriceInfo ）
 2. 根据计费点创建规格包 （ App service CreateAppLicenseSpec ）
 
-admin 修改规格（ aggr UpdateAppLicenseSpec ）
+// admin 修改规格（ aggr UpdateAppLicenseSpec ）
 
-admin 删除规格（ aggr DeleteAppLicenseSpec ）
+// admin 删除规格（ aggr DeleteAppLicenseSpec ）
 
-tenant 查看规格 ( aggr GetAppLicenseSpec ）
+// tenant 查看规格 ( aggr GetAppLicenseSpec ）
 
-tenant 查看规格列表 ( aggr ListAppLicenseSpec ）
+// tenant 查看规格列表 ( aggr ListAppLicenseSpec ）
 
-### 规格包变更
-todo：什么时候变更 
+// ### 规格包变更
+// todo：什么时候变更 
 
 ### 为租户发放license
 admin 发放license ( app aggr CreateAppLicense ）
-1. 查询租户信息 （ iam service ListTenants ）
+1. 查询租户信息 （ iam service ListTenants:已经存在的 ）
 2. 查询应用服务规格 ( app service GetAppLicenseSpec ）
 3. 为租户创建license ( app service CreateAppLicense ）
 
