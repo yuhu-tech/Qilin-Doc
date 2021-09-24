@@ -98,7 +98,13 @@ x-yuhu-date: 20210809T143052Z
 a=1&b=sidebar&content="test"&first=2&params={"contract_address":"0x0","to":"0x0","tx_hash":"0x0"}&skip=1
 ```
 
-2. 生成待签数据
+⚠️ 注意，如果 url 后带有数组参数， 那么请求的payload安照 key=value|value|... 的形式组织；
+如 `http://consoletest.yuhu.tech/api/v1/app/files=1.txt&files=2.txt`, payload 如下：
+```go
+files=1.txt|2.txt
+```
+
+1. 生成待签数据
 
 利用上一步获取的 `Payload` 与 `签名算法、签名时间` 一同生成待签名字符串
 ```
