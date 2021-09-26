@@ -144,6 +144,29 @@ TODO: 图
 
 接口地址：http://localhost:10100/v1/admin/tenants
 
+### 4.用户修改密码
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/app/me/password:change
+
+### 5.管理员修改密码
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/admin/users/password:change
+
+### 6.获取租户实名信息
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/admin/tenants_kyc:get
+
+### 7.保存租户实名信息
+
+接口描述：
+
+接口地址：http://localhost:10100/v1/admin/tenants_kyc:save
 ## 六、服务层接口文档
 
 ### 1.使用账号密码创建 token
@@ -175,3 +198,21 @@ TODO: 图
 接口描述：
 
 接口地址：qilin.basic.iam.v1.ListTenantsKYC
+
+### 6.用户修改密码
+
+接口描述：
+
+接口地址：qilin.basic.iam.v1.ChangePasswordMe
+
+### 7.管理员修改密码
+
+接口描述：
+
+接口地址：qilin.basic.iam.v1.ChangePassword
+
+### 8.更新租户信息
+
+接口描述：
+
+接口地址：qilin.basic.iam.v1.UpdateTenantKYC
