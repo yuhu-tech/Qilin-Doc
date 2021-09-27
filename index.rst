@@ -66,11 +66,6 @@ Qilin将区块链应用开发标准化，按照部署、配置、开发智能合
 存证服务提供给用户提供可信数据存储、核验服务。使用本服务的租户必须通过企业4要素实名认证，存证数据将被存储在域乎可信存证链上，上链时间根据国标《电子数据存证技术规范》提供可信时间戳。
 
 
-溯源服务平台
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-`Qilin-Provenance <./docs/qilin-provenance/index.html>`_
-
-
 资产服务平台
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 `Qilin-Assets <./docs/qilin-assets/index.html>`_
@@ -88,4 +83,3 @@ Qilin将区块链应用开发标准化，按照部署、配置、开发智能合
    ./docs/qilin-contract/index.md
    ./docs/qilin-evidence/index.md
    ./docs/qilin-assets/index.md
-   ./docs/qilin-provenance/index.md
