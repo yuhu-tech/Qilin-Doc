@@ -4,4 +4,5 @@ commonmarkextensions == 0.0.5
 commonmark == 0.8.1
 sphinx-markdown-tables == 0.0.15
 sphinxcontrib-mermaid == 0.6.0
-sphinx-copybutton == 0.2.6
+sphinx-copybutton == 0.3.3
+docutils < 0.18
