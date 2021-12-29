@@ -468,6 +468,84 @@ curl -X POST "http://119.3.106.151:10100/v1/app/evidences:new_verify" \
   "block_hash": "0x5045f61eb8c99b4706df52c560a490abe4a9e9df0fc0a62d1af4cf030ecb1146"
 }
 ```
+
+### 5.获取存证内容
+
+接口描述：获取存证内容
+
+接口地址：http://119.3.106.151:10100/v1/app/evidences:content
+
+请求类型：get
+
+请求参数：  
+
+|编号|名称|类型|是否必须|描述|  
+|-----|-----|-----|-----|-----|  
+|1|evidence_id|string|是|存证id|  
+
+
+响应参数：  
+
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|evidence_title|string|存证标题|  
+|2|evidence_type|string|存证类型|  
+|3|content|bytes|存证内容|
+
+
+请求示例：
+```bash
+curl -X GET "http://119.3.106.151:10100/v1/app/evidences:content?evidence_id=00229959262a4fbfa8e2700b2400bd01" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NDA3NTQ0MzEsImlhdCI6MTY0MDc0NzIzMSwianRpIjoiNWo5amw1NzN5d2w1a3ciLCJzdWIiOiJ1aWQtYWRtaW4ifQ.yCp0YBPa4-gzfXRxyPvDuvLFnQW05xcm39hn0lBAJRgHUaC859GrW6hwMg2zHp2jyNNf0nspzVZMbYf_12mXrw"
+```
+
+
+响应示例：
+```json
+{
+  "evidence_title": "芒果基地物联网数据",
+  "evidence_type": "text",
+  "content": "W3sidW5pdCI6Im0vcyIsInNlbnNvcnNJZCI6IjEwNyIsImRhdGFUaW1lIjoxNjM0MDc2MTEyMDAwLCJ2YWx1ZSI6MS40LCJzZW5zb3JzTmFtZSI6IumjjumAnyJ9LHsidW5pdCI6IktQYSIsInNlbnNvcnNJZCI6IjExNSIsImRhdGFUaW1lIjoxNjM0MDc2MTEyMDAwLCJ2YWx1ZSI6OTkuNDIsInNlbnNvcnNOYW1lIjoi5aSn5rCU5Y6L5YqbIn0seyJ1bml0IjoibW0iLCJzZW5zb3JzSWQiOiIxMTQiLCJkYXRhVGltZSI6MTYzNDA3NjExMjAwMCwidmFsdWUiOjAuMCwic2Vuc29yc05hbWUiOiLpm6jph48ifSx7InVuaXQiOiLCsCIsInNlbnNvcnNJZCI6IjEwOCIsImRhdGFUaW1lIjoxNjM0MDc2MTEyMDAwLCJ2YWx1ZSI6MzM3LjUsInNlbnNvcnNOYW1lIjoi6aOO5ZCRIn0seyJ1bml0IjoiJSIsInNlbnNvcnNJZCI6Ijc2OSIsImRhdGFUaW1lIjoxNjM0MDc2MTEyMDAwLCJ2YWx1ZSI6ODMuMTEsInNlbnNvcnNOYW1lIjoi56m65rCU5rm/5bqmIn0seyJ1bml0Ijoi4oSDIiwic2Vuc29yc0lkIjoiNzcwIiwiZGF0YVRpbWUiOjE2MzQwNzYxMTIwMDAsInZhbHVlIjoyMi4zNSwic2Vuc29yc05hbWUiOiLnqbrmsJTmuKnluqYifSx7InVuaXQiOiJMdXgiLCJzZW5zb3JzSWQiOiI1Mzc3IiwiZGF0YVRpbWUiOjE2MzQwNzYxMTIwMDAsInZhbHVlIjowLjAsInNlbnNvcnNOYW1lIjoi5YWJ54Wn5by65bqmIn1d"
+}
+```
+
+### 6.下载存证证书
+
+接口描述：下载存证证书
+
+接口地址：http://119.3.106.151:10100/v1/app/evidences:certification
+
+请求类型：get
+
+请求参数：  
+
+|编号|名称|类型|是否必须|描述|  
+|-----|-----|-----|-----|-----|  
+|1|evidence_id|string|是|存证id|  
+|2|tenant_id|string|是|租户id|  
+
+响应参数：  
+
+|编号|名称|类型|描述|  
+|-----|-----|-----|-----|  
+|1|title|string|证书文件名称|  
+|2|certificate_type|证书格式|  
+|3|content|string|证书文件本身|
+
+
+
+请求示例：
+```bash
+curl -X GET "http://119.3.106.151:10100/v1/app/evidences:certification?evidence_id=00229959262a4fbfa8e2700b2400bd01&tenant_id=tid-yuhu1" -H "accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NDA3NTQ0MzEsImlhdCI6MTY0MDc0NzIzMSwianRpIjoiNWo5amw1NzN5d2w1a3ciLCJzdWIiOiJ1aWQtYWRtaW4ifQ.yCp0YBPa4-gzfXRxyPvDuvLFnQW05xcm39hn0lBAJRgHUaC859GrW6hwMg2zHp2jyNNf0nspzVZMbYf_12mXrw"
+```
+
+
+响应示例：
+```json
+{
+  "title": "evidence_certification_00229959262a4fbfa8e2700b2400bd01.pdf",
+  "certificate_type": "pdf",
+  "content": "JVBERi0xLjcKCjEgMCBvYmoKPDwKICAvVHlwZSAvQ2F0YWxvZwogIC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAvTWVkaWFCb3ggWyAwIDAgNTk1LjI4IDg0MS44OSBdCiAgL0NvdW50IDEKICAvS2lkcyBbICA1IDAgUiAgXQo+PgplbmRvYmoKCjMgMCBvYmoKPDwKCS9UeXBlIC9PdXRsaW5lcwoJL0NvdW50IDAKPj4KZW5kb2JqCgo0IDAgb2JqCjw8CgkvUHJvY1NldCBbL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSV0KCS9Gb250IDw8CgkJL0YxIDE1IDAgUgoJCS9GMiAyMCAwIFIKCT4+CgkvWE9iamVjdCA8PAoJCS9JMTAgMTAgMCBSCgkJL0kyMSAyMSAwIFIKCQkvR09GUERJVFBMMCA2IDAgUgoJPj4KCS9FeHRHU3RhdGUgPDwKCT4+Cj4+CmVuZG9iagoKNSAwIG9iago8PAogIC9UeXBlIC9QYWdlCiAgL1BhcmVudCAyIDAgUgogIC9SZXNvdXJjZXMgNCAwIFIKICAvQ29udGVudHMgIDkgMCBSIAo+PgplbmRvYmoKCjYgMCBvYmoKPDwvRmlsdGVyIC9GbGF0ZURlY29kZSAvVHlwZSAvWE9iamVjdAovU3VidHlwZSAvRm9ybQovRm9ybVR5cGUgMQovQkJveCBbMC4wMCAwLjAwIDU5NC4zNiA4NDIuOThdCi9SZXNvdXJjZXMgCjw8L1hPYmplY3QgPDwvWDAgNyAwIFIgPj4+Pi9MZW5ndGggNTkgPj4Kc3RyZWFtCnicKuQ"}
+```
 ## 六、服务层接口文档
 
 ### 1.创建事务
