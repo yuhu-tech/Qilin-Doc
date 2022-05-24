@@ -1,0 +1,76 @@
+Project Storage {
+  database_type: 'MySql'
+  Note: '''
+    # Storage Database
+    **markdown content here**
+  '''
+}
+
+// /ownerid/path /wonerid/id /wonerid/digest only; /wonerid/name many
+// 合约层面folder digest 和 file digest 都是无法无法修改，且一个目录下只能有一个文件名
+Table folder as F {
+  id varchar(50) [pk]
+  parent_id varchar(50) [note:"父级文件夹ID, 根目录此字端为空"]
+  name varchar [note:"文件夹名称"]
+  path varchar [not null, note:"文件夹全路径 eg. /tid-yuhu/1000201022/"]
+  digest varchar [not null, note:"文件夹摘要 = hash(id)"]
+  owner_id varchar(50) [note:"文件夹所属用户id"]
+  tenant_id varchar(50) [note:"文件夹所属用户id"]
+  group_id varchar(50) [note:"文件夹所属组id"]
+  created_at datetime [default: `now()`]
+  update_at datetime [default: `now()`]
+  note: "table 'floder' contains floder information"
+
+  Indexes {
+    path [unique, name:"idx_file_path"]
+    (parent_id, name) [unique, name:'idx_floder_content']
+
+    digest [name:"idx_folder_digest"]
+  }
+}
+
+Table file {
+  id varchar(50) [pk]
+  folder_id varchar(50) [note:"文件夹id"]
+  folder_digest varchar [note:"需上链，不能修改"]
+  name varchar(50) [note:"文件名 需上链，不能修改"]
+  content_digest varchar [note:"文件摘要 需上链，不能修改"]
+  path varchar [not null, note:"文件全路径 eg. /tid-yuhu/1000201022/0.jpg"]
+  owner_id varchar(50) [note:"文件夹所属用户id"]
+  tenant_id varchar(50) [note:"文件夹所属用户id"]
+  group_id varchar(50) [note:"文件夹所属组id"]
+  tx_hash varchar(100)
+  status varchar(50) [note:"wait_build,builded,succeed,failed;"]
+  created_at datetime [default: `now()`]
+  update_at datetime [default: `now()`]
+  note: "table 'file' contains file information"
+
+  Indexes {
+    path [unique, name:"idx_file_path"]
+    (folder_digest, name) [unique, name:'idx_floder_content']
+
+    content_digest [name:"idx_file_content_digest"]
+    status [name:"idx_file_status"]
+  }
+}
+
+// 合约每个文件摘要上一次链, 且每次上链需要记录访问路径才能防止篡改
+Table file_storage as PS {
+    id varchar(50) [pk]
+    storage_type varchar(50) [note:"eg. oss"]
+    file_type varchar(50) [note:"mime type"]
+    size_bytes bigint [note:"bytes"] 
+    path varchar [not null,note:"eg. /storage/1/5/0.jpg"]
+    content_digest varchar
+
+    Indexes {
+      path [unique]
+      content_digest [unique]
+    }
+}
+// TODO file_storage.size_bytes 类型
+// file.status 确认文本
+
+Ref: file.folder_digest > F.digest  
+Ref: file.folder_id > F.id
+Ref: file.content_digest > PS.content_digest
